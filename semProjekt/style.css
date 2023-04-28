@@ -29,4 +29,9 @@ button {
 
 button:hover {
 	background-color: #e60000;
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.56);
+}
+
+button:active {
+	opacity: 0.8;
 }

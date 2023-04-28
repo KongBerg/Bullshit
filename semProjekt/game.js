@@ -22,4 +22,4 @@ button2.addEventListener("click", function() {
 		alert("You chose " + website2.name + ". Incorrect!");
 	}
 });
-*/
+ */
