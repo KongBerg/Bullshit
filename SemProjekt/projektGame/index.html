@@ -7,12 +7,131 @@
 </head>
 
 <body>
-	<h1>Hvilken hjemmeside generere mest CO2? </h1>
 	<div class="container">
-		<button id="website1">Website 1</button>
-		<button id="website2">Website 2</button>
+		<p>Har websitet til venstre højere eller lavere co2 udledning på et år?</p>
+		<button id="higher-btn">Higher</button>
+		<button id="lower-btn">Lower</button>
 	</div>
-	<script src="game.js"></script>
+
+
+	<div>
+		<h2 id="site-name"></h2>
+		<img id="site-image" src="">
+		<p>CO2 per year: <span id="co2-per-year"></span></p>
+		<img id="other-site-image" src="">
+		<p id="result"></p>
+		<p id="score"></p>
+	</div>
+
+	<div>
+		<h2 id="other-site-name"></h2>
+		<img id="other-site-image" src="">
+		<p id="result"></p>
+		<p id="score"></p>
+	</div>
+
+	<script>
+		// Define variables
+		let score = 0;
+		let currentSiteIndex = 0;
+		let sites = [
+			{
+				name: "Google",
+				image: "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
+				co2PerMonth: 250000
+			},
+			{
+				name: "Twitter",
+				image: "https://abs.twimg.com/responsive-web/client-web-legacy/icon-ios.8ea219d2.png",
+				co2PerMonth: 120000
+			},
+			{
+				name: "Netflix",
+				image: "https://assets.nflxext.com/ffe/siteui/common/icons/nficon2016.png",
+				co2PerMonth: 1000000
+			},
+			{
+				name: "Amazon",
+				image: "https://d1.awsstatic.com/logos/aws-logo-lockups/poweredbyaws/PB_AWS_logo_RGB_stacked_REV_SQ.91cd4af8fc844e15b0d16fcf60f6e49b6c385e6c.png",
+				co2PerMonth: 440000
+			},
+			{
+				name: "Wikipedia",
+				image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png",
+				co2PerMonth: 70000
+			},
+			{
+				name: "Etsy",
+				image: "https://www.etsy.com/assets/press/etsy_logo_250x200-486db6a02a01232b4f0bca9912299db4.png?cb=20210317173353",
+				co2PerMonth: 30000
+			}
+		];
+
+		// Define functions
+		function getRandSite() {
+			let randIndex = Math.floor(Math.random() * sites.length);
+			return sites[randIndex];
+		}
+
+		function updateUI() {
+			let currentSite = sites[currentSiteIndex];
+			let otherSite = getRandSite();
+			let co2PerYear = currentSite.co2PerMonth * 12;
+
+			// Update UI for current site
+			document.getElementById("site-name").innerText = currentSite.name;
+			document.getElementById("site-image").src = currentSite.image;
+			document.getElementById("co2-per-year").innerText = co2PerYear.toLocaleString() + " tons";
+
+			// Update UI for other site
+			document.getElementById("other-site-name").innerText = otherSite.name;
+			document.getElementById("other-site-image").src = otherSite.image;
+		}
+
+		function higherClicked() {
+			let currentSite = sites[currentSiteIndex];
+			let otherSite = getRandSite();
+
+			if (currentSite.co2PerMonth > otherSite.co2PerMonth) {
+				score++;
+				currentSiteIndex++;
+				updateUI();
+				document.getElementById("score").innerText = "Score: " + score;
+				document.getElementById("result").innerText = "Correct!";
+			} else {
+				score = 0;
+				currentSiteIndex = 0;
+				document.getElementById("score").innerText = "Score: " + score;
+				document.getElementById("result").innerText = "Sorry, that's incorrect. Game over.";
+			}
+		}
+
+		function lowerClicked() {
+			let currentSite = sites[currentSiteIndex];
+			let otherSite = getRandSite();
+
+			if (currentSite.co2PerMonth < otherSite.co2PerMonth) {
+				score++;
+				currentSiteIndex++;
+				updateUI();
+				document.getElementById("score").innerText = "Score: " + score;
+				document.getElementById("result").innerText = "Correct!";
+			} else {
+				score = 0;
+				currentSiteIndex = 0;
+				document.getElementById("score").innerText = "Score: " + score;
+				document.getElementById("result").innerText = "Sorry, that's incorrect. Game over.";
+			}
+		}
+
+		// Main code
+		updateUI();
+
+		document.getElementById("higher-btn").addEventListener("click", higherClicked);
+		document.getElementById("lower-btn").addEventListener("click", lowerClicked);
+
+	</script>
+
 </body>
 
 </html>

@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Define the database connection parameters
-const connectionString = process.env.hattie.db.elephantsql.com
+const connectionString = "postgres://nxxhgnvh:***@hattie.db.elephantsql.com/nxxhgnvh"
 
 // Create a new PostgreSQL client instance
 const client = new Client({
@@ -89,3 +89,11 @@ app.get('/website2', function (req, res) {
 	});
 });
 
+// Start the server
+app.listen(port, () => {
+	console.log("Server listening on port " + port);
+}
+);
+
+// Close the database connection
+client.end();
