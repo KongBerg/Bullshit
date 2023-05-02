@@ -1,5 +1,5 @@
 .overskrift {
-  text-align: left;
+  text-align: center;
   font-size: 30px;
   font-family: "Roboto", Arial, sans-serif;
 }
@@ -99,4 +99,10 @@ body {
   100% {
     transform: translateX(1);
   }
+}
+
+.barchart{
+    display: block;
+    margin: 0 auto;
+  
 }
