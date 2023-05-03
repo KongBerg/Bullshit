@@ -65,11 +65,22 @@ function showGameOver() {
     
     let difference = Math.abs(currentSite.co2PerYear - otherSite.co2PerYear);
     let moreOrLess = currentSite.co2PerYear > otherSite.co2PerYear ? "less" : "more";
-    let funFacts = [
-        "That's the same amount of CO2 emitted by driving around the Earth 100 times!",
-        "That's equivalent to the yearly emissions of a small island country!",
-        "That's as much CO2 as 10,000 cows emit in a year!"
-    ];
+	let funFacts = [
+		"That's the same amount of CO2 emitted by driving around the Earth 100 times!",
+		"That's equivalent to the yearly emissions of a small island country!",
+		"That's as much CO2 as 10,000 cows emit in a year!",
+		"That's equivalent to the CO2 emissions of a coal-fired power plant running for a week!",
+		"That's the same as the emissions produced by 50,000 loads of laundry!",
+		"That's like burning 1 million pounds of coal!",
+		"That's the amount of CO2 a forest of 100,000 trees can absorb in a year!",
+		"That's the same as the CO2 emitted by charging 200 million smartphones!",
+		"That's the equivalent of flying a jumbo jet halfway around the world!",
+		"That's as much CO2 as the yearly emissions of 1,000 cars!",
+		"That's equivalent to the CO2 emissions of 50,000 propane-powered barbecues!",
+		"That's the same as the CO2 emitted by 500,000 train rides!",
+		"That's like the emissions of a rocket launch to the International Space Station!"
+	];
+	
     let randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
 
     document.getElementById("result").innerHTML = `Sorry, that's incorrect. Game over.<br><br>
