@@ -3,14 +3,73 @@ body {
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
-}
-
-.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
+    height: 100vh;
+    position: relative;
+}
+
+.title {
+    position: absolute;
+    top: 20px;
+    text-align: center;
+    z-index: 1;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 50%;
+}
+
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.site-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 50%;
+    z-index: 1;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
+}
+
+.bottom-left {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1;
 }
 
 button {
@@ -20,16 +79,16 @@ button {
     border-radius: 8px;
     cursor: pointer;
     margin: 12px;
+    background-color: #3498db;
+    color: white;
 }
 
 #higher-btn {
     background-color: #2ecc71;
-    color: white;
 }
 
 #lower-btn {
     background-color: #e74c3c;
-    color: white;
 }
 
 #result {
@@ -43,19 +102,9 @@ button {
     text-align: center;
 }
 
-div:nth-of-type(2) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 50px;
-}
-
-img {
-    width: 150px;
-    height: 150px;
-    margin: 12px;
+h2 {
+    font-size: 28px;
+    margin-bottom: 24px;
 }
 
 p {
@@ -69,7 +118,7 @@ span {
     font-weight: bold;
 }
 
-h2 {
-    font-size: 28px;
-    margin-bottom: 24px;
+.highlight {
+    color: #2ecc71;
+    font-weight: bold;
 }
