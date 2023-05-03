@@ -3,6 +3,7 @@ let score = 0;
 let highScore = 0;
 let currentSite = null;
 let otherSite = null;
+let shuffleInterval = null;
 let sites = [
 	{
 		name: "Google",
@@ -36,6 +37,18 @@ let sites = [
 	}
 ];
 
+// This function shuffles the sites array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+// Shuffle the sites array before starting the game
+shuffleArray(sites);
+
+
 // Define functions
 function getRandSite(excludeSite) {
     let filteredSites = sites.filter(site => site !== excludeSite);
@@ -55,6 +68,52 @@ function updateUI() {
     // Update UI for other site
     document.getElementById("other-site-name").innerText = otherSite.name;
     document.getElementById("other-site-wrapper").style.backgroundImage = `url('${otherSite.image}')`;
+}
+
+function showResult() {
+    clearInterval(shuffleInterval);
+    document.getElementById("other-site-co2").innerText = otherSite.co2PerYear.toLocaleString() + " tons";
+}
+
+function slideLeftAndReplace() {
+    document.getElementById("current-site-wrapper").classList.add("slide-out-left");
+    document.getElementById("other-site-wrapper").classList.add("slide-out-left");
+    setTimeout(() => {
+        document.getElementById("current-site-wrapper").classList.remove("slide-out-left");
+        document.getElementById("other-site-wrapper").classList.remove("slide-out-left");
+        currentSite = otherSite;
+        otherSite = getRandSite(currentSite);
+
+        // Update UI for current site
+        document.getElementById("site-name").innerText = currentSite.name;
+        document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image}')`;
+        document.getElementById("co2-per-year").innerText = currentSite.co2PerYear.toLocaleString() + " tons";
+
+        // Update UI for other site
+        document.getElementById("other-site-name").innerText = otherSite.name;
+        document.getElementById("other-site-wrapper").style.backgroundImage = `url('${otherSite.image}')`;
+        document.getElementById("other-site-co2").innerText = "";
+    }, 1000);
+}
+
+
+
+function shuffleSiteCo2() {
+    const maxIterations = 30;
+    let iterations = 0;
+    let minCo2 = Math.min(currentSite.co2PerYear, otherSite.co2PerYear);
+    let maxCo2 = Math.max(currentSite.co2PerYear, otherSite.co2PerYear);
+    
+    shuffleInterval = setInterval(() => {
+        const randomCo2 = Math.floor(Math.random() * (maxCo2 - minCo2 + 1)) + minCo2;
+        document.getElementById("other-site-co2").innerText = randomCo2.toLocaleString() + " tons";
+        
+        iterations++;
+
+        if (iterations >= maxIterations) {
+            showResult();
+        }
+    }, 100);
 }
 
 function showGameOver() {
@@ -92,26 +151,44 @@ function showGameOver() {
     document.getElementById("try-again-btn").style.display = "block";
 }
 
+function shuffleSiteCo2() {
+    let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2PerYear * 1.2));
+    document.getElementById("other-site-co2").innerText = shuffledCo2.toLocaleString() + " tons";
+}
+
+function stopShuffleAndShowFinalCo2() {
+    clearInterval(shuffleInterval);
+    document.getElementById("other-site-co2").innerText = otherSite.co2PerYear.toLocaleString() + " tons";
+}
+
 function higherClicked() {
-    if (currentSite.co2PerYear > otherSite.co2PerYear) {
-        score++;
-        document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("result").innerText = "Correct!";
-        updateUI();
-    } else {
-        showGameOver();
-    }
+    shuffleInterval = setInterval(shuffleSiteCo2, 100);
+    setTimeout(() => {
+        stopShuffleAndShowFinalCo2();
+        if (currentSite.co2PerYear > otherSite.co2PerYear) {
+            score++;
+            document.getElementById("score").innerText = "Score: " + score;
+            document.getElementById("result").innerText = "Correct!";
+            slideLeftAndReplace();
+        } else {
+            showGameOver();
+        }
+    }, 2000);
 }
 
 function lowerClicked() {
-    if (currentSite.co2PerYear < otherSite.co2PerYear) {
-        score++;
-        document.getElementById("score").innerText = "Score: " + score;
-        document.getElementById("result").innerText = "Correct!";
-        updateUI();
-    } else {
-        showGameOver();
-    }
+    shuffleInterval = setInterval(shuffleSiteCo2, 100);
+    setTimeout(() => {
+        stopShuffleAndShowFinalCo2();
+        if (currentSite.co2PerYear < otherSite.co2PerYear) {
+            score++;
+            document.getElementById("score").innerText = "Score: " + score;
+            document.getElementById("result").innerText = "Correct!";
+            slideLeftAndReplace();
+        } else {
+            showGameOver();
+        }
+    }, 2000);
 }
 
 function tryAgainClicked() {
@@ -121,8 +198,10 @@ function tryAgainClicked() {
     document.getElementById("higher-btn").style.display = "block";
     document.getElementById("lower-btn").style.display = "block";
     document.getElementById("try-again-btn").style.display = "none";
+    document.getElementById("other-site-co2").innerText = "";
     updateUI();
 }
+
 
 // Main code
 updateUI();
