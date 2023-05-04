@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="forsideStyle.css">
+  <title>Forside</title>
+</head>
+
+<body>
+  <h2 class="overskrift">Hvilke Tech-giganter udleder mest CO2?</h2>
+  <div class="Test-knap">
+    <button onclick="openGame()">Test</button>
+    <script>
+      function openGame() {
+        window.open("projektGame/index.html");
+      }
+    </script>
+  </div>
+
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+
+
+<!-- SVG: -->
+  <svg class="barchart" width="500" height="300">
+
+		<!-- y-axis line -->
+		<line x1="50" y1="50" x2="50" y2="250" stroke="black" stroke-width="2" />
+		
+		<!-- x-axis line -->
+		<line x1="50" y1="250" x2="450" y2="250" stroke="black" stroke-width="2" />
+
+		<!-- Bars -->
+		<rect x="75" y="200" width="50" height="50" fill="blue" />
+		<rect x="150" y="150" width="50" height="100" fill="green" />
+		<rect x="225" y="100" width="50" height="150" fill="red" />
+		<rect x="300" y="50" width="50" height="200" fill="orange" />
+
+		<!-- Labels -->
+		<text x="75" y="270" font-size="12">Bar 1</text>
+		<text x="150" y="270" font-size="12">Bar 2</text>
+		<text x="225" y="270" font-size="12">Bar 3</text>
+		<text x="300" y="270" font-size="12">Bar 4</text>
+
+		<text x="25" y="60" font-size="12" transform="rotate(-90, 25, 60)">Value</text>
+		<text x="250" y="290" font-size="12">Bar Chart Example</text>
+	</svg>
+</body>
+
+</html>
