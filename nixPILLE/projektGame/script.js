@@ -25,7 +25,7 @@ async function fetchSites() {
     }
 }
 
-  console.log("Script.js loaded and executed");
+console.log("Script.js loaded and executed");
 
 
 // Functions
@@ -47,7 +47,7 @@ function updateUI() {
 
     currentSite = getRandSite(otherSite);
     otherSite = getRandSite(currentSite);
-    
+
     let convertToNumberO = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
     let convertToNumberC = currentSite.co2_per_year * 1; // to get decimals cuz shits not working
 
@@ -90,7 +90,7 @@ function slideLeftAndReplace() {
         otherSite = getRandSite(currentSite);
 
         // Update UI for current site
-        let convertToNumberC = currentSite.co2_per_year * 1; // to get decimals cuz shits not working
+        let convertToNumberC = currentSite.co2_per_year * 1;
         document.getElementById("site-name").innerText = currentSite.name;
         document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image_url}')`;
         document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
@@ -108,26 +108,26 @@ function showGameOver() {
         highScore = score;
         document.getElementById("high-score").innerText = "High Score: " + highScore;
     }
-    
+
 
     let difference = Math.abs(currentSite.co2_per_year - otherSite.co2_per_year);
-    let moreOrLess = currentSite.co2_per_year > otherSite.co2_per_year ? "less" : "more";
-	let funFacts = [
-		"That's the same amount of CO2 emitted by driving around the Earth 100 times!",
-		"That's equivalent to the yearly emissions of a small island country!",
-		"That's as much CO2 as 10,000 cows emit in a year!",
-		"That's equivalent to the CO2 emissions of a coal-fired power plant running for a week!",
-		"That's the same as the emissions produced by 50,000 loads of laundry!",
-		"That's like burning 1 million pounds of coal!",
-		"That's the amount of CO2 a forest of 100,000 trees can absorb in a year!",
-		"That's the same as the CO2 emitted by charging 200 million smartphones!",
-		"That's the equivalent of flying a jumbo jet halfway around the world!",
-		"That's as much CO2 as the yearly emissions of 1,000 cars!",
-		"That's equivalent to the CO2 emissions of 50,000 propane-powered barbecues!",
-		"That's the same as the CO2 emitted by 500,000 train rides!",
-		"That's like the emissions of a rocket launch to the International Space Station!"
-	];
-	
+    let moreOrLess = parseFloat(currentSite.co2_per_year) > parseFloat(otherSite.co2_per_year) ? "less" : "more";
+    let funFacts = [
+        "That's the same amount of CO2 emitted by driving around the Earth 100 times!",
+        "That's equivalent to the yearly emissions of a small island country!",
+        "That's as much CO2 as 10,000 cows emit in a year!",
+        "That's equivalent to the CO2 emissions of a coal-fired power plant running for a week!",
+        "That's the same as the emissions produced by 50,000 loads of laundry!",
+        "That's like burning 1 million pounds of coal!",
+        "That's the amount of CO2 a forest of 100,000 trees can absorb in a year!",
+        "That's the same as the CO2 emitted by charging 200 million smartphones!",
+        "That's the equivalent of flying a jumbo jet halfway around the world!",
+        "That's as much CO2 as the yearly emissions of 1,000 cars!",
+        "That's equivalent to the CO2 emissions of 50,000 propane-powered barbecues!",
+        "That's the same as the CO2 emitted by 500,000 train rides!",
+        "That's like the emissions of a rocket launch to the International Space Station!"
+    ];
+
     let convertToNumber = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
     let randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
 
@@ -155,7 +155,7 @@ function higherClicked() {
     shuffleInterval = setInterval(shuffleSiteCo2, 100);
     setTimeout(() => {
         stopShuffleAndShowFinalCo2();
-        if (currentSite.co2_per_year > otherSite.co2_per_year) {
+        if (parseFloat(otherSite.co2_per_year) > parseFloat(currentSite.co2_per_year)) {
             score++;
             document.getElementById("score").innerText = "Score: " + score;
             document.getElementById("result").innerText = "Correct!";
@@ -170,7 +170,7 @@ function lowerClicked() {
     shuffleInterval = setInterval(shuffleSiteCo2, 100);
     setTimeout(() => {
         stopShuffleAndShowFinalCo2();
-        if (currentSite.co2_per_year < otherSite.co2_per_year) {
+        if (parseFloat(otherSite.co2_per_year) < parseFloat(currentSite.co2_per_year)) {
             score++;
             document.getElementById("score").innerText = "Score: " + score;
             document.getElementById("result").innerText = "Correct!";
