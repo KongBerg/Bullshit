@@ -100,7 +100,7 @@ button {
     left: 0;
     bottom: 20%;
     z-index: 3;
-    width: 100vw;
+    width: 100%;
 }
 
 #score {
@@ -142,4 +142,3 @@ span {
         transform: translateX(-100%);
     }
 }
-

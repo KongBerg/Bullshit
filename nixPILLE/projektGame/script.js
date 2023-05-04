@@ -133,7 +133,7 @@ function showGameOver() {
     let randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
 
     document.getElementById("result").innerHTML = `Sorry, that's incorrect. Game over.<br><br>
-                                                   The website on the right has <span class="highlight">${convertToNumber.toLocaleString()} tons</span> of CO2 emissions per year, 
+                                                   ${otherSite.name} has <span class="highlight">${convertToNumber.toLocaleString()} tons</span> of CO2 emissions per year, 
                                                    which is <span class="highlight">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.<br><br>
                                                    ${randomFunFact}`;
     document.getElementById("higher-btn").style.display = "none";
@@ -164,7 +164,7 @@ function higherClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1200);
 }
 
 function lowerClicked() {
@@ -179,7 +179,7 @@ function lowerClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1200);
 }
 
 function tryAgainClicked() {
