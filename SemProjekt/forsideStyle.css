@@ -107,8 +107,12 @@ body {
 }
 
 .barchart{
-    display: block;
+    display: inline block;
     margin: 0 auto;
+    position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
 }
 
 .info-box{
@@ -121,7 +125,7 @@ body {
   background-color: transparent;
   color: rgb(53, 120, 179);
   height:500px;
-  width:300px;
+  width:200px;
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
   border:2px solid;
