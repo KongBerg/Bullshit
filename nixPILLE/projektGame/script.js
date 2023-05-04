@@ -35,6 +35,10 @@ function getRandSite(excludeSite) {
     return filteredSites[randIndex];
 }
 
+function numberWithDecimals(x) {
+    return x.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 function updateUI() {
     if (!sites || sites.length === 0) {
         console.error('Site data is missing or not loaded properly');
@@ -43,6 +47,9 @@ function updateUI() {
 
     currentSite = getRandSite(otherSite);
     otherSite = getRandSite(currentSite);
+    
+    let convertToNumberO = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
+    let convertToNumberC = currentSite.co2_per_year * 1; // to get decimals cuz shits not working
 
     // Update UI for current site (left side)
     const siteNameElement = document.getElementById("site-name");
@@ -51,7 +58,7 @@ function updateUI() {
     if (siteNameElement && currentSiteWrapperElement && co2PerYearElement) {
         siteNameElement.innerText = currentSite.name;
         currentSiteWrapperElement.style.backgroundImage = `url('${currentSite.image_url}')`;
-        co2PerYearElement.innerText = currentSite.co2_per_year.toLocaleString() + " tons";
+        co2PerYearElement.innerText = convertToNumberC.toLocaleString() + " tons";
     } else {
         console.error('Unable to update UI elements');
     }
@@ -83,9 +90,10 @@ function slideLeftAndReplace() {
         otherSite = getRandSite(currentSite);
 
         // Update UI for current site
+        let convertToNumberC = currentSite.co2_per_year * 1; // to get decimals cuz shits not working
         document.getElementById("site-name").innerText = currentSite.name;
         document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image_url}')`;
-        document.getElementById("co2-per-year").innerText = currentSite.co2_per_year.toLocaleString() + " tons";
+        document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
 
         // Update UI for other site
         document.getElementById("other-site-name").innerText = otherSite.name;
@@ -101,6 +109,7 @@ function showGameOver() {
         document.getElementById("high-score").innerText = "High Score: " + highScore;
     }
     
+
     let difference = Math.abs(currentSite.co2_per_year - otherSite.co2_per_year);
     let moreOrLess = currentSite.co2_per_year > otherSite.co2_per_year ? "less" : "more";
 	let funFacts = [
@@ -119,10 +128,11 @@ function showGameOver() {
 		"That's like the emissions of a rocket launch to the International Space Station!"
 	];
 	
+    let convertToNumber = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
     let randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
 
     document.getElementById("result").innerHTML = `Sorry, that's incorrect. Game over.<br><br>
-                                                   The website on the right has <span class="highlight">${otherSite.co2_per_year.toLocaleString()} tons</span> of CO2 emissions per year, 
+                                                   The website on the right has <span class="highlight">${convertToNumber.toLocaleString()} tons</span> of CO2 emissions per year, 
                                                    which is <span class="highlight">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.<br><br>
                                                    ${randomFunFact}`;
     document.getElementById("higher-btn").style.display = "none";
@@ -136,8 +146,9 @@ function shuffleSiteCo2() {
 }
 
 function stopShuffleAndShowFinalCo2() {
+    let convertToNumber = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
     clearInterval(shuffleInterval);
-    document.getElementById("other-site-co2").innerText = otherSite.co2_per_year.toLocaleString() + " tons";
+    document.getElementById("other-site-co2").innerText = convertToNumber.toLocaleString() + " tons";
 }
 
 function higherClicked() {
@@ -152,7 +163,7 @@ function higherClicked() {
         } else {
             showGameOver();
         }
-    }, 1800);
+    }, 2000);
 }
 
 function lowerClicked() {
@@ -167,7 +178,7 @@ function lowerClicked() {
         } else {
             showGameOver();
         }
-    }, 1800);
+    }, 2000);
 }
 
 function tryAgainClicked() {
@@ -180,6 +191,7 @@ function tryAgainClicked() {
     document.getElementById("other-site-co2").innerText = "";
     updateUI();
 }
+
 
 // Main code
 updateUI();
