@@ -131,7 +131,7 @@ function showGameOver() {
 }
 
 function shuffleSiteCo2() {
-    let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2_per_year * 1.2));
+    let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2_per_year * 1.5));
     document.getElementById("other-site-co2").innerText = shuffledCo2.toLocaleString() + " tons";
 }
 
@@ -152,7 +152,7 @@ function higherClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1800);
 }
 
 function lowerClicked() {
@@ -167,7 +167,7 @@ function lowerClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1800);
 }
 
 function tryAgainClicked() {
@@ -180,7 +180,6 @@ function tryAgainClicked() {
     document.getElementById("other-site-co2").innerText = "";
     updateUI();
 }
-
 
 // Main code
 updateUI();
