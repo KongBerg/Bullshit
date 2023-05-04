@@ -35,6 +35,7 @@ function getRandSite(excludeSite) {
     return filteredSites[randIndex];
 }
 
+// slet måske?
 function numberWithDecimals(x) {
     return x.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }

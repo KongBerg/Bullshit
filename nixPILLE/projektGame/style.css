@@ -15,14 +15,14 @@ body {
     position: absolute;
     top: 20px;
     text-align: center;
-    z-index: 1;
+    z-index: 3;
 }
 
 .container {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 50%;
+    height: 100%;
 }
 
 .site-wrapper {
@@ -44,9 +44,10 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     color: white;
     text-shadow: 1px 1px 2px black;
+    justify-content: center;
 }
 
 .button-container {
@@ -55,7 +56,7 @@ body {
     align-items: center;
     position: absolute;
     bottom: 50%;
-    z-index: 1;
+    z-index: 3;
 }
 
 .bottom-right {
@@ -95,6 +96,11 @@ button {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 20%;
+    z-index: 3;
+    width: 100vw;
 }
 
 #score {
@@ -123,6 +129,11 @@ span {
     font-weight: bold;
 }
 
+.slide-out-left {
+    animation: slide-out-left 1s;
+    animation-fill-mode: forwards;
+}
+
 @keyframes slide-out-left {
     0% {
         transform: translateX(0%);
@@ -132,11 +143,3 @@ span {
     }
 }
 
-.slide-out-left {
-    animation: slide-out-left 1s;
-}
-
-.shuffling {
-    color: #2ecc71;
-    font-weight: bold;
-}
