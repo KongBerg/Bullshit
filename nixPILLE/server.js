@@ -19,6 +19,16 @@ app.get('/api/sites', async (req, res) => {
   }
 });
 
+app.get('/api/sites', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM  infrastruktur');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching data');
+  }
+});
+
 // Enable CORS for all origins
 app.use(cors({
     origin: '*'
@@ -26,3 +36,8 @@ app.use(cors({
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log( `Server listening on port ${PORT}`));
+
+// Frigør ressourcer, når serveren stoppes
+process.on('exit', () => {
+  client.end();
+});

@@ -28,7 +28,7 @@ async function fetchSites() {
   console.log("Script.js loaded and executed");
 
 
-// Define functions
+// Functions
 function getRandSite(excludeSite) {
     let filteredSites = sites.filter(site => site !== excludeSite);
     let randIndex = Math.floor(Math.random() * filteredSites.length);
@@ -44,7 +44,7 @@ function updateUI() {
     currentSite = getRandSite(otherSite);
     otherSite = getRandSite(currentSite);
 
-    // Update UI for current site
+    // Update UI for current site (left side)
     const siteNameElement = document.getElementById("site-name");
     const currentSiteWrapperElement = document.getElementById("current-site-wrapper");
     const co2PerYearElement = document.getElementById("co2-per-year");
@@ -56,7 +56,7 @@ function updateUI() {
         console.error('Unable to update UI elements');
     }
 
-    // Update UI for other site
+    // Update UI for other site (right side)
     const otherSiteNameElement = document.getElementById("other-site-name");
     const otherSiteWrapperElement = document.getElementById("other-site-wrapper");
     if (otherSiteNameElement && otherSiteWrapperElement) {
@@ -67,7 +67,7 @@ function updateUI() {
     }
 }
 
-
+// Event listeners
 function showResult() {
     clearInterval(shuffleInterval);
     document.getElementById("other-site-co2").innerText = otherSite.co2_per_year.toLocaleString() + " tons";
@@ -93,6 +93,7 @@ function slideLeftAndReplace() {
         document.getElementById("other-site-co2").innerText = "";
     }, 1000);
 }
+
 
 function showGameOver() {
     if (score > highScore) {
@@ -130,7 +131,7 @@ function showGameOver() {
 }
 
 function shuffleSiteCo2() {
-    let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2_per_year * 1.2));
+    let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2_per_year * 1.5));
     document.getElementById("other-site-co2").innerText = shuffledCo2.toLocaleString() + " tons";
 }
 
@@ -151,7 +152,7 @@ function higherClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1800);
 }
 
 function lowerClicked() {
@@ -166,7 +167,7 @@ function lowerClicked() {
         } else {
             showGameOver();
         }
-    }, 2000);
+    }, 1800);
 }
 
 function tryAgainClicked() {
@@ -179,7 +180,6 @@ function tryAgainClicked() {
     document.getElementById("other-site-co2").innerText = "";
     updateUI();
 }
-
 
 // Main code
 updateUI();
