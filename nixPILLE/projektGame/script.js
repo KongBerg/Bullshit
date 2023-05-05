@@ -25,9 +25,6 @@ async function fetchSites() {
     }
 }
 
-console.log("Script.js loaded and executed");
-
-
 // Functions
 function getRandSite(excludeSite) {
     let filteredSites = sites.filter(site => site !== excludeSite);
@@ -35,10 +32,71 @@ function getRandSite(excludeSite) {
     return filteredSites[randIndex];
 }
 
-// slet måske?
-function numberWithDecimals(x) {
-    return x.toLocaleString('en', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+// Add ripple effect to buttons
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach((button) => {
+  button.addEventListener("click", function () {
+    button.classList.add("clicked");
+    setTimeout(() => {
+      button.classList.remove("clicked");
+    }, 500);
+  });
+});
+
+function createRipple(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement("span");
+    ripple.classList.add("ripple");
+  
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
+  
+    ripple.style.width = ripple.style.height = `${diameter}px`;
+    ripple.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+    ripple.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+  
+    button.appendChild(ripple);
+  
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
+  
+  buttons.forEach((button) => {
+    button.addEventListener("click", createRipple);
+  });
+
+
+function slideLeftAndReplace() {
+    document.getElementById("current-site-wrapper").classList.add("slide-out-left");
+    document.getElementById("other-site-wrapper").classList.add("slide-out-left");
+    
+    setTimeout(() => {
+        document.getElementById("current-site-wrapper").classList.remove("slide-out-left");
+        document.getElementById("other-site-wrapper").classList.remove("slide-out-left");
+        currentSite = otherSite;
+        otherSite = getRandSite(currentSite);
+
+        // Update UI for current site
+        let convertToNumberC = currentSite.co2_per_year * 1;
+        document.getElementById("site-name").innerText = currentSite.name;
+        document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image_url}')`;
+        document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
+
+        // Update UI for other site
+        document.getElementById("other-site-name").innerText = otherSite.name;
+        document.getElementById("other-site-wrapper").style.backgroundImage = `url('${otherSite.image_url}')`;
+        document.getElementById("other-site-co2").innerText = "";
+        
+        // Add slide-in effect for the new site on the right
+        document.getElementById("other-site-wrapper").classList.add("slide-in-right");
+        setTimeout(() => {
+            document.getElementById("other-site-wrapper").classList.remove("slide-in-right");
+        }, 1000);
+    }, 1000);
 }
+
 
 function updateUI() {
     if (!sites || sites.length === 0) {
@@ -80,29 +138,6 @@ function showResult() {
     clearInterval(shuffleInterval);
     document.getElementById("other-site-co2").innerText = otherSite.co2_per_year.toLocaleString() + " tons";
 }
-
-function slideLeftAndReplace() {
-    document.getElementById("current-site-wrapper").classList.add("slide-out-left");
-    document.getElementById("other-site-wrapper").classList.add("slide-out-left");
-    setTimeout(() => {
-        document.getElementById("current-site-wrapper").classList.remove("slide-out-left");
-        document.getElementById("other-site-wrapper").classList.remove("slide-out-left");
-        currentSite = otherSite;
-        otherSite = getRandSite(currentSite);
-
-        // Update UI for current site
-        let convertToNumberC = currentSite.co2_per_year * 1;
-        document.getElementById("site-name").innerText = currentSite.name;
-        document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image_url}')`;
-        document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
-
-        // Update UI for other site
-        document.getElementById("other-site-name").innerText = otherSite.name;
-        document.getElementById("other-site-wrapper").style.backgroundImage = `url('${otherSite.image_url}')`;
-        document.getElementById("other-site-co2").innerText = "";
-    }, 1000);
-}
-
 
 function showGameOver() {
     if (score > highScore) {
@@ -160,6 +195,7 @@ function higherClicked() {
             score++;
             document.getElementById("score").innerText = "Score: " + score;
             document.getElementById("result").innerText = "Correct!";
+            hideResult();
             slideLeftAndReplace();
         } else {
             showGameOver();
@@ -175,6 +211,7 @@ function lowerClicked() {
             score++;
             document.getElementById("score").innerText = "Score: " + score;
             document.getElementById("result").innerText = "Correct!";
+            hideResult();
             slideLeftAndReplace();
         } else {
             showGameOver();
@@ -193,6 +230,12 @@ function tryAgainClicked() {
     updateUI();
 }
 
+function hideResult() {
+    setTimeout(() => {
+        document.getElementById("result").innerText = "";
+    }, 1000);
+}
+
 
 // Main code
 updateUI();
@@ -201,3 +244,4 @@ document.getElementById("high-score").innerText = "High Score: " + highScore;
 document.getElementById("higher-btn").addEventListener("click", higherClicked);
 document.getElementById("lower-btn").addEventListener("click", lowerClicked);
 document.getElementById("try-again-btn").addEventListener("click", tryAgainClicked);
+
