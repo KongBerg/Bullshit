@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* Style for the chart */
+    #chart {
+      font-family: Arial, sans-serif;
+      width: 600px;
+      height: 400px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .bar {
+      fill: #4e79a7;
+    }
+
+    .bar-label {
+      fill: #333;
+      font-size: 12px;
+      text-anchor: end;
+      alignment-baseline: middle;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #333;
+      shape-rendering: crispEdges;
+    }
+
+    .axis text {
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="chart"></div>
+
+  <script>
+    // Data
+    const data = [
+      { id: 1, firmaer_navne: 'Facebook', metric_tons_pr_year: 982000 },
+      { id: 2, firmaer_navne: 'Google', metric_tons_pr_year: 4900000 },
+      { id: 4, firmaer_navne: 'Amazon', metric_tons_pr_year: 60640000 },
+      { id: 5, firmaer_navne: 'Netflix', metric_tons_pr_year: 1100000 },
+      { id: 6, firmaer_navne: 'Microsoft', metric_tons_pr_year: 16400000 },
+      { id: 7, firmaer_navne: 'Det Danske Landbrug', metric_tons_pr_year: 10600000 },
+      { id: 8, firmaer_navne: 'Hvor meget CO2 10 Hektar rengksov i Panama kan opsamle.', metric_tons_pr_year: 6200000 },
+    ];
+
+    // Chart dimensions
+    const margin = { top: 30, right: 20, bottom: 30, left: 150 };
+    const width = 600 - margin.left - margin.right;
+    const height = 400 - margin.top - margin.bottom;
+
+    // Create SVG element
+    const svg = d3.select('#chart')
+      .append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    // Create scales
+    const xScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.metric_tons_pr_year)])
+      .range([0, width]);
+
+    const yScale = d3.scaleBand()
+      .domain(data.map(d => d.firmaer_navne))
+      .range([0, height])
+      .padding(0.2);
+
+    // Create bars
+    svg.selectAll('.bar')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', 0)
+      .attr('y', d => yScale(d.firmaer_navne))
+      .attr('width', d => xScale(d.metric_tons_pr_year))
+      .attr('height', yScale.bandwidth());
+
+    // Create labels
+    svg.selectAll('.bar-label')
+      .data(data)
+      .enter()
+      .append('text')
+      .attr('class', 'bar-label')
+      .attr('x', d => xScale(d.metric_tons_pr_year) - 10)
+      .attr('y', d => yScale(d.firmaer_navne) + yScale.bandwidth() / 2)
+      .attr('dy', '0.35em')
+      .text(d => d.metric_tons_pr_year.toLocaleString());
+
+    // Add axes
+    svg.append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0,${height})`)
+      .call(d3.axisBottom(xScale).ticks(5).tickSizeOuter(0));
+
+    svg.append('g')
+      .attr('class', 'y-axis')
+      .call(d3.axisLeft(yScale));
+
+  </script>
+</body>
+</html>
