@@ -68,34 +68,36 @@ function createRipple(event) {
   });
 
 
-function slideLeftAndReplace() {
-    document.getElementById("current-site-wrapper").classList.add("slide-out-left");
-    document.getElementById("other-site-wrapper").classList.add("slide-out-left");
-    
+  function slideLeftAndReplace() {
+    const currentSiteWrapper = document.getElementById("current-site-wrapper");
+    const otherSiteWrapper = document.getElementById("other-site-wrapper");
+  
+    currentSiteWrapper.classList.add("slide-out-left");
+    otherSiteWrapper.classList.add("slide-in-right");
+  
     setTimeout(() => {
-        document.getElementById("current-site-wrapper").classList.remove("slide-out-left");
-        document.getElementById("other-site-wrapper").classList.remove("slide-out-left");
-        currentSite = otherSite;
-        otherSite = getRandSite(currentSite);
+      // Update sites
+      currentSite = otherSite;
+      otherSite = getRandSite(currentSite);
+  
+      // Update UI for current site
+      let convertToNumberC = currentSite.co2_per_year * 1;
+      document.getElementById("site-name").innerText = currentSite.name;
+      currentSiteWrapper.style.backgroundImage = `url('${currentSite.image_url}')`;
+      document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
+  
+      // Update UI for other site
+      document.getElementById("other-site-name").innerText = otherSite.name;
+      otherSiteWrapper.style.backgroundImage = `url('${otherSite.image_url}')`;
+      document.getElementById("other-site-co2").innerText = "";
+  
+      // Remove the slide-out and slide-in classes after the transition finishes
+      currentSiteWrapper.classList.remove("slide-out-left");
+      otherSiteWrapper.classList.remove("slide-in-right");
+    }, 1000); // Adjust this time to match the transition duration in your CSS
+  }
 
-        // Update UI for current site
-        let convertToNumberC = currentSite.co2_per_year * 1;
-        document.getElementById("site-name").innerText = currentSite.name;
-        document.getElementById("current-site-wrapper").style.backgroundImage = `url('${currentSite.image_url}')`;
-        document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
 
-        // Update UI for other site
-        document.getElementById("other-site-name").innerText = otherSite.name;
-        document.getElementById("other-site-wrapper").style.backgroundImage = `url('${otherSite.image_url}')`;
-        document.getElementById("other-site-co2").innerText = "";
-        
-        // Add slide-in effect for the new site on the right
-        document.getElementById("other-site-wrapper").classList.add("slide-in-right");
-        setTimeout(() => {
-            document.getElementById("other-site-wrapper").classList.remove("slide-in-right");
-        }, 1000);
-    }, 1000);
-}
 
 
 function updateUI() {
@@ -244,4 +246,3 @@ document.getElementById("high-score").innerText = "High Score: " + highScore;
 document.getElementById("higher-btn").addEventListener("click", higherClicked);
 document.getElementById("lower-btn").addEventListener("click", lowerClicked);
 document.getElementById("try-again-btn").addEventListener("click", tryAgainClicked);
-
