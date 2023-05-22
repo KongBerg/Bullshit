@@ -1,110 +1,162 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <style>
-    /* Style for the chart */
-    #chart {
-      font-family: Arial, sans-serif;
-      width: 600px;
-      height: 400px;
-      background-color: #f2f2f2;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .bar {
-      fill: #4e79a7;
-    }
-
-    .bar-label {
-      fill: #333;
-      font-size: 12px;
-      text-anchor: end;
-    }
-
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: #333;
-      shape-rendering: crispEdges;
-    }
-
-    .axis text {
-      font-size: 12px;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="forsideStyle.css">
+  <title>Forside</title>
+  <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
-<body>
-  <div id="chart"></div>
 
+<body>
+  <h2 class="overskrift">Hvilke Tech-giganter udleder mest CO2?</h2>
+  <div class="knap">
+    <button class="Test-knap" onclick="openGame()">TEST DIG SELV</button>
+    <script>
+      function openGame() {
+        window.open("projektGame/index.html");
+      }
+    </script>
+  </div>
+
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+
+
+  <!-- Data -->
   <script>
-    // Data
+    // Define the data
     const data = [
-      { id: 1, firmaer_navne: 'Facebook', metric_tons_pr_year: 982000 },
-      { id: 2, firmaer_navne: 'Google', metric_tons_pr_year: 4900000 },
-      { id: 4, firmaer_navne: 'Amazon', metric_tons_pr_year: 60640000 },
-      { id: 5, firmaer_navne: 'Netflix', metric_tons_pr_year: 1100000 },
-      { id: 6, firmaer_navne: 'Microsoft', metric_tons_pr_year: 16400000 },
-      { id: 7, firmaer_navne: 'Det Danske Landbrug', metric_tons_pr_year: 10600000 },
-      { id: 8, firmaer_navne: 'Hvor meget CO2 10 Hektar rengksov i Panama kan opsamle.', metric_tons_pr_year: 6200000 },
+      { name: "Facebook", emissions: 982000 },
+      { name: "Google", emissions: 4900000 },
+      { name: "Amazon", emissions: 60640000 },
+      { name: "Netflix", emissions: 1100000 },
+      { name: "Microsoft", emissions: 16400000 }
     ];
 
-    // Chart dimensions
-    const margin = { top: 30, right: 20, bottom: 30, left: 150 };
-    const width = 600 - margin.left - margin.right;
-    const height = 400 - margin.top - margin.bottom;
+    // Create the SVG element
+    const svg = d3.select("body")
+      .append("svg")
+      .attr("class", "barchart")
+      .attr("width", 1000)
+      .attr("height", 600);
 
-    // Create SVG element
-    const svg = d3.select('#chart')
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
-
-    // Create scales
-    const xScale = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.metric_tons_pr_year)])
-      .range([0, width]);
-
-    const yScale = d3.scaleBand()
-      .domain(data.map(d => d.firmaer_navne))
-      .range([0, height])
+    // Define the scales
+    const xScale = d3.scaleBand()
+      .domain(data.map(d => d.name))
+      .range([140, 740])
       .padding(0.2);
 
-    // Create bars
-    svg.selectAll('.bar')
+    const yScale = d3.scaleLinear()
+      .domain([0, d3.max(data, d => d.emissions)])
+      .range([500, 100]);
+
+    // Draw the y-axis line
+    svg.append("line")
+      .attr("x1", 100)
+      .attr("y1", 500)
+      .attr("x2", 100)
+      .attr("y2", 80)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Draw the y-axis label
+    svg.append("text")
+      .attr("x", -50)
+      .attr("y", 300)
+      .attr("font-size", 14)
+      .attr("text-anchor", "middle")
+      .attr("transform", "rotate(-90, 60, 300)")
+      .text("CO2 Emissions (Metric Tons)");
+
+    // Draw the y-axis ticks and labels
+    const yAxisTicks = [0, 10_000_000, 20_000_000, 30_000_000];
+
+    svg.selectAll(".y-axis-tick")
+      .data(yAxisTicks)
+      .enter()
+      .append("line")
+      .attr("class", "y-axis-tick")
+      .attr("x1", 95)
+      .attr("y1", d => yScale(d))
+      .attr("x2", 105)
+      .attr("y2", d => yScale(d))
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    svg.selectAll(".y-axis-label")
+      .data(yAxisTicks)
+      .enter()
+      .append("text")
+      .attr("class", "y-axis-label")
+      .attr("x", 90)
+      .attr("y", d => yScale(d) + 4)
+      .attr("font-size", 16)
+      .attr("text-anchor", "end")
+      .text(d => d.toLocaleString());
+
+    // Draw the x-axis line
+    svg.append("line")
+      .attr("x1", 100)
+      .attr("y1", 500)
+      .attr("x2", 750)
+      .attr("y2", 500)
+      .attr("stroke", "black")
+      .attr("stroke-width", 2);
+
+    // Draw the bars
+    svg.selectAll(".bar")
       .data(data)
       .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('x', 0)
-      .attr('y', d => yScale(d.firmaer_navne))
-      .attr('width', d => xScale(d.metric_tons_pr_year))
-      .attr('height', yScale.bandwidth());
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", d => xScale(d.name))
+      .attr("y", 500)
+      .attr("width", xScale.bandwidth())
+      .attr("height", 0)
+      .attr("fill", "#3B5998")
+      .transition()
+      .duration(1000)
+      .attr("y", d => yScale(d.emissions))
+      .attr("height", d => 500 - yScale(d.emissions));
 
-    // Create labels
-    svg.selectAll('.bar-label')
+    // Add labels to the bars
+    svg.selectAll(".bar-label")
       .data(data)
       .enter()
-      .append('text')
-      .attr('class', 'bar-label')
-      .attr('x', d => xScale(d.metric_tons_pr_year) - 10)
-      .attr('y', d => yScale(d.firmaer_navne) + yScale.bandwidth() / 2)
-      .attr('dy', '0.35em')
-      .text(d => d.metric_tons_pr_year.toLocaleString());
+      .append("text")
+      .attr("class", "bar-label")
+      .attr("x", d => xScale(d.name) + xScale.bandwidth() / 2)
+      .attr("y", d => yScale(d.emissions) - 10)
+      .attr("font-size", 24)
+      .attr("text-anchor", "middle")
+      .text(d => d.emissions.toLocaleString());
 
-    // Add axes
-    svg.append('g')
-      .attr('class', 'x-axis')
-      .attr('transform', `translate(0,${height})`)
-      .call(d3.axisBottom(xScale).ticks(5).tickSizeOuter(0));
-
-    svg.append('g')
-      .attr('class', 'y-axis')
-      .call(d3.axisLeft(yScale));
+    // Add labels for the x-axis
+    svg.selectAll(".x-axis-label")
+      .data(data)
+      .enter()
+      .append("text")
+      .attr("class", "x-axis-label")
+      .attr("x", d => xScale(d.name) + xScale.bandwidth() / 2)
+      .attr("y", 530)
+      .attr("font-size", 24)
+      .attr("text-anchor", "middle")
+      .text(d => d.name);
 
   </script>
+
+  <div class="info-box">
+    <h2>Info Box oenten omrking hvad der bliver visualiseret eller noget sjovt fakta eksempelvis: en sammenligning omkring hvor meget virksomheder udleder ift lande, som fx Frankrig.</h2>
+    <p>Info box til barchart, eller det andet</p>
+  </div>
+
 </body>
+
 </html>

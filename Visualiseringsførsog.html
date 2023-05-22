@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="forsideStyle.css">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <title>Forside</title>
+</head>
+
+<body>
+  <h2 class="overskrift">Hvilke Tech-giganter udleder mest CO2?</h2>
+  <div class="knap">
+    <button class="Test-knap" onclick="openGame()">TEST DIG SELV</button>
+    <script>
+      function openGame() {
+        window.open("projektGame/index.html");
+      }
+    </script>
+  </div>
+
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+  <!--       Det er baggrund til forsiden CSS-ting       -->
+  <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
+
+
+  <!-- Data -->
+  <script>
+
+  </script>
+  <svg class="barchart" width="1000" height="600">
+    <!-- y-axis line -->
+    <line x1="100" y1="500" x2="100" y2="80" stroke="black" stroke-width="2" />
+
+    <!-- y-axis label -->
+    <text x="-50" y="300" font-size="14" text-anchor="middle" transform="rotate(-90, 60, 300)">CO2 Emissions (Metric Tons)</text>
+
+    <!-- y-axis ticks and labels -->
+    <g>
+      <!-- Tick 1 -->
+      <line x1="95" y1="500" x2="105" y2="500" stroke="black" stroke-width="2" />
+      <text x="90" y="504" font-size="16" text-anchor="end">0</text>
+      <!-- Tick 2 -->
+      <line x1="95" y1="450" x2="105" y2="450" stroke="black" stroke-width="2" />
+      <text x="90" y="450" font-size="16" text-anchor="end">10.000.000</text>
+      <!-- Tick 3 -->
+      <line x1="95" y1="350" x2="105" y2="350" stroke="black" stroke-width="2" />
+      <text x="90" y="350" font-size="16" text-anchor="end">20.000.000</text>
+      <!-- Tick 4 -->
+      <line x1="95" y1="250" x2="105" y2="250" stroke="black" stroke-width="2" />
+      <text x="90" y="250" font-size="16" text-anchor="end">30.000.000</text>
+    </g>
+
+    <!-- x-axis line -->
+    <line x1="100" y1="500" x2="750" y2="500" stroke="black" stroke-width="2" />
+
+    <!-- Bars -->
+    <g>
+      <rect x="140" y="500" width="80" height="0" fill="#3B5998">
+        <animate attributeName="y" from="500" to="423" dur="1s" fill="freeze" />
+        <animate attributeName="height" from="0" to="77" dur="1s" fill="freeze" />
+      </rect>
+      <text x="140" y="530" font-size="24" text-anchor="middle">Facebook</text>
+      <text x="160" y="405" font-size="24" text-anchor="middle">982.000</text>
+    </g>
+    <g>
+      <rect x="260" y="500" width="80" height="0" fill="#4285F4">
+        <animate attributeName="y" from="500" to="300" dur="1s" fill="freeze" />
+        <animate attributeName="height" from="0" to="200" dur="1s" fill="freeze" />
+      </rect>
+      <text x="260" y="530" font-size="24" text-anchor="middle">Google</text>
+      <text x="280" y="295" font-size="24" text-anchor="middle">4.900.000</text>
+    </g>
+    <g>
+      <rect x="380" y="500" width="80" height="0" fill="#FF9900">
+        <animate attributeName="y" from="500" to="170" dur="1s" fill="freeze" />
+        <animate attributeName="height" from="0" to="330" dur="1s" fill="freeze" />
+      </rect>
+      <text x="380" y="530" font-size="24" text-anchor="middle">Amazon</text>
+      <text x="380" y="155" font-size="24" text-anchor="middle">60.640.000</text>
+    </g>
+    <g>
+      <rect x="500" y="500" width="80" height="0" fill="#E50914">
+        <animate attributeName="y" from="500" to="389" dur="1s" fill="freeze" />
+        <animate attributeName="height" from="0" to="111" dur="1s" fill="freeze" />
+      </rect>
+      <text x="500" y="530" font-size="24" text-anchor="middle">Netflix</text>
+      <text x="540" y="385" font-size="24" text-anchor="middle">1.100.000</text>
+    </g>
+    <g>
+      <rect x="620" y="500" width="80" height="0" fill="#00A4EF">
+        <animate attributeName="y" from="500" to="255" dur="1s" fill="freeze" />
+        <animate attributeName="height" from="0" to="245" dur="1s" fill="freeze" />
+      </rect>
+      <text x="620" y="530" font-size="24" text-anchor="middle">Microsoft</text>
+      <text x="620" y="255" font-size="24" text-anchor="middle">16.400.000</text>
+    </g>
+  </svg>
+
+  <div class="info-box">
+    <h2>Info Box oenten omrking hvad der bliver visualiseret eller noget sjovt fakta eksempelvis: en sammenligning omkring hvor meget virksomheder udleder ift lande, som fx Frankrig.</h2>
+    <p>Info box til barchart, eller det andet</p>
+  </div>
+
+</body>
+
+</html>
