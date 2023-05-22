@@ -19,6 +19,7 @@
     </script>
   </div>
 
+
   <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
   <!--       Det er baggrund til forsiden CSS-ting       -->
   <div>
@@ -34,121 +35,62 @@
   <script>
     d3.csv("infrastruktur.csv").then(function (data) {
 
+      // Set the dimensions and margins of the graph
+      const margin = { top: 30, right: 30, bottom: 70, left: 70 };
+      const width = 600 - margin.left - margin.right;
+      const height = 400 - margin.top - margin.bottom;
 
       // Define the scales
       const xScale = d3.scaleBand()
-        .domain([0, d3.max(data, function (d) {
-          return parseFloat(d.fimaer_navne);
-        })])
-        .range([10, -10])
+        .domain(data.map(function (d) {
+          return d.firmaer_navne;
+        }))
+        .range([0, width])
         .padding(0.2);
 
       const yScale = d3.scaleLinear()
         .domain([0, d3.max(data, function (d) {
-          return parseInt(d.metric_tons_pr_year);
+          return parseFloat(d.metric_tons_pr_year);
         })])
-        .range([10, -10]);
-
+        .range([height, 0]);
 
       // Create the SVG element
       const svg = d3.select("body")
         .append("svg")
-        .attr("class", "barchart")
-        .attr("width", 1000)
-        .attr("height", 600);
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      // Draw the y-axis line
-      svg.append("line")
-        .attr("x1", 100)
-        .attr("y1", 500)
-        .attr("x2", 100)
-        .attr("y2", 80)
-        .attr("stroke", "black")
-        .attr("stroke-width", 2);
-
-      // Draw the y-axis label
-      svg.append("text")
-        .attr("x", -50)
-        .attr("y", 300)
-        .attr("font-size", 14)
-        .attr("text-anchor", "middle")
-        .attr("transform", "rotate(-90, 60, 300)")
-        .text("CO2 Emissions (Metric Tons)");
-
-      // Draw the y-axis ticks and labels
-      const yAxisTicks = [];
-
-      svg.selectAll(".y-axis-tick")
-        .data(yAxisTicks)
-        .enter()
-        .append("line")
-        .attr("class", "y-axis-tick")
-        .attr("x1", 95)
-        .attr("y1", d => yScale(d))
-        .attr("x2", 105)
-        .attr("y2", d => yScale(d))
-        .attr("stroke", "black")
-        .attr("stroke-width", 2);
-
-      svg.selectAll(".y-axis-label")
-        .data(yAxisTicks)
-        .enter()
-        .append("text")
-        .attr("class", "y-axis-label")
-        .attr("x", 90)
-        .attr("y", d => yScale(d) + 4)
-        .attr("font-size", 16)
-        .attr("text-anchor", "end")
-        .text(d => d.toLocaleString());
-
-      // Draw the x-axis line
-      svg.append("line")
-        .attr("x1", 100)
-        .attr("y1", 500)
-        .attr("x2", 750)
-        .attr("y2", 500)
-        .attr("stroke", "black")
-        .attr("stroke-width", 2);
-
-      // Draw the bars
-      svg.selectAll(".bar")
+      // Add the bars
+      svg.selectAll("rect")
         .data(data)
         .enter()
         .append("rect")
-        .attr("class", "bar")
-        .attr("x", d => xScale(d.name))
-        .attr("y", 500)
+        .attr("x", function (d) {
+          return xScale(d.firmaer_navne);
+        })
+        .attr("y", function (d) {
+          return yScale(parseFloat(d.metric_tons_pr_year));
+        })
         .attr("width", xScale.bandwidth())
-        .attr("height", 0)
-        .attr("fill", "#3B5998")
-        .transition()
-        .duration(1000)
-        .attr("y", d => yScale(d.emissions))
-        .attr("height", d => 500 - yScale(d.emissions));
+        .attr("height", function (d) {
+          return height - yScale(parseFloat(d.metric_tons_pr_year));
+        })
+        .attr("fill", "steelblue");
 
-      // Add labels to the bars
-      svg.selectAll(".bar-label")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "bar-label")
-        .attr("x", d => xScale(d.name) + xScale.bandwidth() / 2)
-        .attr("y", d => yScale(d.emissions) - 10)
-        .attr("font-size", 24)
-        .attr("text-anchor", "middle")
-        .text(d => d.emissions.toLocaleString());
+      // Add the x-axis
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale))
+        .selectAll("text")
+        .attr("transform", "rotate(-45)")
+        .style("text-anchor", "end");
 
-      // Add labels for the x-axis
-      svg.selectAll(".x-axis-label")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "x-axis-label")
-        .attr("x", d => xScale(d.name) + xScale.bandwidth() / 2)
-        .attr("y", 530)
-        .attr("font-size", 24)
-        .attr("text-anchor", "middle")
-        .text(d => d.name);
+      // Add the y-axis
+      svg.append("g")
+        .call(d3.axisLeft(yScale));
+
     });
   </script>
 
