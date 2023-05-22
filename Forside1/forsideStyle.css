@@ -2,6 +2,7 @@
   text-align: center;
   font-size: 30px;
   font-family: "Roboto", Arial, sans-serif;
+  margin-bottom: 100px;
 }
 
 .Test-knap {
@@ -107,16 +108,9 @@ body {
   }
 }
 
-.barchart{
-    display: inline block;
-    margin: 0 auto;
-    position: absolute;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-}
-
 .info-box{
+  margin-left: 0px;
+  margin-top: 100px;
   display: inline-block;
   object-position: center;
   position: absolute; /* to center the image vertically */
@@ -125,11 +119,15 @@ body {
   transform: translate(-100%, -100%);
   background-color: transparent;
   color: rgb(53, 120, 179);
-  height:500px;
-  width:200px;
+  height:600px;
+  width:250px;
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
   border:2px solid;
   border-color: rgb(65, 5, 107);
   margin-left: 50px;
+}
+
+rect {
+  fill: rgb(42, 111, 180); /* Change the bar color here */
 }

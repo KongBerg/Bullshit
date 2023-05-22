@@ -18,8 +18,6 @@
       }
     </script>
   </div>
-
-
   <!-- DO NOT TOUCH DIS PLS HELLER IKKE RÆKKEFØLGEN TAK. -->
   <!--       Det er baggrund til forsiden CSS-ting       -->
   <div>
@@ -36,9 +34,9 @@
     d3.csv("infrastruktur.csv").then(function (data) {
 
       // Set the dimensions and margins of the graph
-      const margin = { top: 30, right: 30, bottom: 70, left: 70 };
-      const width = 600 - margin.left - margin.right;
-      const height = 400 - margin.top - margin.bottom;
+      const margin = { top: 30, right: 250, bottom: 300, left: 400 };
+      const width = 1300 - margin.left - margin.right;
+      const height = 800 - margin.top - margin.bottom;
 
       // Define the scales
       const xScale = d3.scaleBand()
@@ -85,11 +83,14 @@
         .call(d3.axisBottom(xScale))
         .selectAll("text")
         .attr("transform", "rotate(-45)")
-        .style("text-anchor", "end");
+        .style("text-anchor", "end",)
+        .style("font-size", "12px",)
+        
 
       // Add the y-axis
       svg.append("g")
         .call(d3.axisLeft(yScale));
+        
 
     });
   </script>
