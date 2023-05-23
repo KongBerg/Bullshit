@@ -147,35 +147,18 @@ function showGameOver() {
         document.getElementById("high-score").innerText = "High Score: " + highScore;
     }
 
-
     let difference = Math.abs(currentSite.co2_per_year - otherSite.co2_per_year);
     let moreOrLess = parseFloat(currentSite.co2_per_year) > parseFloat(otherSite.co2_per_year) ? "less" : "more";
-    let funFacts = [
-        "That's the same amount of CO2 emitted by driving around the Earth 100 times!",
-        "That's equivalent to the yearly emissions of a small island country!",
-        "That's as much CO2 as 10,000 cows emit in a year!",
-        "That's equivalent to the CO2 emissions of a coal-fired power plant running for a week!",
-        "That's the same as the emissions produced by 50,000 loads of laundry!",
-        "That's like burning 1 million pounds of coal!",
-        "That's the amount of CO2 a forest of 100,000 trees can absorb in a year!",
-        "That's the same as the CO2 emitted by charging 200 million smartphones!",
-        "That's the equivalent of flying a jumbo jet halfway around the world!",
-        "That's as much CO2 as the yearly emissions of 1,000 cars!",
-        "That's equivalent to the CO2 emissions of 50,000 propane-powered barbecues!",
-        "That's the same as the CO2 emitted by 500,000 train rides!",
-        "That's like the emissions of a rocket launch to the International Space Station!"
-    ];
 
     let convertToNumber = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
-    let randomFunFact = funFacts[Math.floor(Math.random() * funFacts.length)];
 
     document.getElementById("result").innerHTML = `Sorry, that's incorrect. Game over.<br><br>
                                                    ${otherSite.name} has <span class="highlight">${convertToNumber.toLocaleString()} tons</span> of CO2 emissions per year, 
-                                                   which is <span class="highlight">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.<br><br>
-                                                   ${randomFunFact}`;
+                                                   which is <span class="highlight">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.`;
     document.getElementById("higher-btn").style.display = "none";
     document.getElementById("lower-btn").style.display = "none";
     document.getElementById("try-again-btn").style.display = "block";
+    document.getElementById("result").classList.add('endgame-text');
 }
 
 function shuffleSiteCo2() {
@@ -225,6 +208,7 @@ function tryAgainClicked() {
     score = 0;
     document.getElementById("score").innerText = "Score: " + score;
     document.getElementById("result").innerText = "";
+    document.getElementById("result").classList.remove('endgame-text');
     document.getElementById("higher-btn").style.display = "block";
     document.getElementById("lower-btn").style.display = "block";
     document.getElementById("try-again-btn").style.display = "none";

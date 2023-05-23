@@ -276,6 +276,19 @@ button::after {
   animation: fadeIn 2s ease-in-out;
 }
 
+.endgame-text {
+  background-color: rgba(0, 0, 0, 0.5); /* Add your own styling here */
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
