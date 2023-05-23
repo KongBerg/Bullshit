@@ -3,132 +3,140 @@
   font-size: 30px;
   font-family: "Roboto", Arial, sans-serif;
   margin-bottom: 100px;
+  color: rgb(0, 0, 0);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.Test-knap {
-  background-color: rgb(126, 37, 174);
-  border-style: solid;
-  border-width: 0px;
-  color: rgb(255, 255, 255);
-  border-radius: 20px;
+.Test-knap { 
+  align-items: center;
+  background-color: #fee6e3;
+  border: 2px solid #111;
+  border-radius: 8px;
+  color: #111;
   cursor: pointer;
-  padding: 10px 20px;
-  transition: background-color 0.15s, color 0.15s;
-  position: fixed;
-  bottom: 50px;
-  right: 40px;
-  outline: none;
-  width: 100px;
-  height: 50px;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  height: 48px;
+  padding: 25px;
   text-align: center;
-  font-size: 15px;
-width: 130px;
-height: 60px;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
 }
+
 
 .Test-knap:hover {
-  background-color: rgb(48, 25, 106);
-  color: rgb(255, 255, 255);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.56);
+  box-shadow: 0px 0px 0px 0px;
+  transition: 0.5s;
 }
 
 .Test-knap:active {
-  opacity: 0.7;
+  background-color: #ffdeda;
 }
 
-body {
-  margin: auto;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: auto;
-  background: linear-gradient(315deg, rgba(101, 0, 94, 1) 3%, rgba(60, 132, 206, 1) 38%, rgba(48, 238, 226, 1) 68%, rgba(255, 25, 25, 1) 98%);
-  animation: gradient 15s ease infinite;
-  background-size: 400% 400%;
-  background-attachment: fixed;
+
+/* Baggrunden*/
+.bg {
+  animation:slide 3s ease-in-out infinite alternate;
+  background-image: linear-gradient(-60deg, rgb(102, 204, 51) 50%, rgb(48, 48, 48) 50%);
+  bottom:0;
+  left:-50%;
+  opacity:.5;
+  position:fixed;
+  right:-50%;
+  top:0;
+  z-index:-1;
 }
 
-@keyframes gradient {
+.bg2 {
+  animation-direction:alternate-reverse;
+  animation-duration:4s;
+}
+
+.bg3 {
+  animation-duration:5s;
+}
+
+.content {
+  background-color:rgba(255,255,255,.8);
+  border-radius:.25em;
+  box-shadow:0 0 .25em rgba(0,0,0,.25);
+  box-sizing:border-box;
+  left:50%;
+  padding:10vmin;
+  position:fixed;
+  text-align:center;
+  top:50%;
+  transform:translate(-50%, -50%);
+}
+
+/*Animation til baggrunden*/
+@keyframes slide {
   0% {
-    background-position: 0% 0%;
+    transform:translateX(-25%);
   }
-
-  50% {
-    background-position: 100% 100%;
-  }
-
   100% {
-    background-position: 0% 0%;
+    transform:translateX(25%);
   }
 }
 
-.wave {
-  background: rgb(255 255 255 / 25%);
-  border-radius: 1000% 1000% 0 0;
-  position: fixed;
-  width: 200%;
-  height: 12em;
-  animation: wave 10s -3s linear infinite;
-  transform: translate3d(0, 0, 0);
-  opacity: 0.8;
-  bottom: 0;
-  left: 0;
-  z-index: -1;
-}
 
-.wave:nth-of-type(2) {
-  bottom: -1.25em;
-  animation: wave 18s linear reverse infinite;
-  opacity: 0.8;
-}
-
-.wave:nth-of-type(3) {
-  bottom: -2.5em;
-  animation: wave 20s -1s reverse infinite;
-  opacity: 0.9;
-}
-
-@keyframes wave {
-  2% {
-    transform: translateX(1);
-  }
-
-  25% {
-    transform: translateX(-25%);
-  }
-
-  50% {
-    transform: translateX(-50%);
-  }
-
-  75% {
-    transform: translateX(-25%);
-  }
-
-  100% {
-    transform: translateX(1);
-  }
-}
-
+/* DET HER ER BOKSENS KODE*/
 .info-box{
-  margin-left: 0px;
-  margin-top: 100px;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: 220px;
+  margin-top: 120px;
   display: inline-block;
   object-position: center;
   position: absolute; /* to center the image vertically */
   top: 60%; /* to center the image vertically */
   left: 85%; /* to center the image horizontally */
   transform: translate(-100%, -100%);
-  background-color: transparent;
-  color: rgb(53, 120, 179);
+  background-color: rgb(255, 250, 250);
+  color: rgb(0, 0, 0);
   height:600px;
-  width:250px;
+  width:350px;
   text-align: center;
-  font-family: 'Courier New', Courier, monospace;
   border:2px solid;
-  border-color: rgb(65, 5, 107);
-  margin-left: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 20px 20px rgba(0,0,0,.15);
+  transition: all .4s ease;
+  line-height: 30px;
 }
 
+.info-box:hover{
+  border-radius: 50% 50% 50% 50% / 5% 5% 5% 5% ;
+  box-shadow: 10px 10px rgba(0,0,0,.25);
+}
+
+
+
 rect {
-  fill: rgb(42, 111, 180); /* Change the bar color here */
+  fill: rgb(30, 68, 106); /* FARVE PÅ HVER BAR */
+}
+
+@import url(https://fonts.googleapis.com/css?family=Bangers); /* DET ER TIL BOKSEN INDEN I BOKSEN TEKSTEN
+
+body{
+  background:#fff;
+  font-family: 'Bangers', cursive;
+  font-size: 25px;
+}
+
+/*LILLE BOKS INDE I BOKS */
+.evenboxinner{
+  transform: rotate(2deg);
+  margin:15px;
+  padding:5px;
+  float:right;
+  background:#ddd;
+  border:1px solid #222;
+  box-shadow:3px 3px 0 #222;
+  font-size: 20px;
 }
 
