@@ -168,7 +168,6 @@ width: 170px;
 
 /* OM BARENE PÅ GRAFEN*/
 rect.bar {
-  fill: steelblue;
   transition: fill 0.3s ease;
 }
 
