@@ -36,69 +36,70 @@ function getRandSite(excludeSite) {
 const buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
-  button.addEventListener("click", function () {
-    button.classList.add("clicked");
-    setTimeout(() => {
-      button.classList.remove("clicked");
-    }, 500);
-  });
+    button.addEventListener("click", function () {
+        button.classList.add("clicked");
+        setTimeout(() => {
+            button.classList.remove("clicked");
+        }, 500);
+    });
 });
 
 function createRipple(event) {
     const button = event.currentTarget;
     const ripple = document.createElement("span");
     ripple.classList.add("ripple");
-  
+
     const diameter = Math.max(button.clientWidth, button.clientHeight);
     const radius = diameter / 2;
-  
+
     ripple.style.width = ripple.style.height = `${diameter}px`;
     ripple.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
     ripple.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
-  
+
     button.appendChild(ripple);
-  
+
     setTimeout(() => {
-      ripple.remove();
+        ripple.remove();
     }, 600);
-  }
-  
-  buttons.forEach((button) => {
+}
+
+buttons.forEach((button) => {
     button.addEventListener("click", createRipple);
-  });
+});
 
 
-  function slideLeftAndReplace() {
+function slideLeftAndReplace() {
     const currentSiteWrapper = document.getElementById("current-site-wrapper");
     const otherSiteWrapper = document.getElementById("other-site-wrapper");
-  
+
     currentSiteWrapper.classList.add("slide-out-left");
     otherSiteWrapper.classList.add("slide-in-right");
-  
+
     setTimeout(() => {
-      // Update sites
-      currentSite = otherSite;
-      otherSite = getRandSite(currentSite);
-  
-      // Update UI for current site
-      let convertToNumberC = currentSite.co2_per_year * 1;
-      document.getElementById("site-name").innerText = currentSite.name;
-      currentSiteWrapper.style.backgroundImage = `url('${currentSite.image_url}')`;
-      document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
-  
-      // Update UI for other site
-      document.getElementById("other-site-name").innerText = otherSite.name;
-      otherSiteWrapper.style.backgroundImage = `url('${otherSite.image_url}')`;
-      document.getElementById("other-site-co2").innerText = "";
-  
-      // Remove the slide-out and slide-in classes after the transition finishes
-      currentSiteWrapper.classList.remove("slide-out-left");
-      otherSiteWrapper.classList.remove("slide-in-right");
+        // Update sites
+        currentSite = otherSite;
+        otherSite = getRandSite(currentSite);
+
+        // Update UI for current site
+        let convertToNumberC = currentSite.co2_per_year * 1;
+        document.getElementById("site-name").innerText = currentSite.name;
+        currentSiteWrapper.style.backgroundImage = `url('${currentSite.image_url}')`;
+        document.getElementById("co2-per-year").innerText = convertToNumberC.toLocaleString() + " tons";
+
+        // Update UI for other site
+        document.getElementById("other-site-name").innerText = otherSite.name;
+        otherSiteWrapper.style.backgroundImage = `url('${otherSite.image_url}')`;
+        document.getElementById("other-site-co2").innerText = "";
+
+        // Remove the slide-out and slide-in classes after the transition finishes
+        currentSiteWrapper.classList.remove("slide-out-left");
+        otherSiteWrapper.classList.remove("slide-in-right");
+
+        // Re-enable buttons (Disabled during transition to prevent double-clicking-bug)
+        document.getElementById("higher-btn").disabled = false;
+        document.getElementById("lower-btn").disabled = false;
     }, 1000); // Adjust this time to match the transition duration in your CSS
-  }
-
-
-
+}
 
 function updateUI() {
     if (!sites || sites.length === 0) {
@@ -172,6 +173,9 @@ function stopShuffleAndShowFinalCo2() {
 }
 
 function higherClicked() {
+    // Disable buttons (Disabled during transition to prevent double-clicking-bug)
+    document.getElementById("higher-btn").disabled = true;
+    document.getElementById("lower-btn").disabled = true;
     shuffleInterval = setInterval(shuffleSiteCo2, 100);
     setTimeout(() => {
         stopShuffleAndShowFinalCo2();
@@ -188,7 +192,14 @@ function higherClicked() {
 }
 
 function lowerClicked() {
+    // Disable buttons (Disabled during transition to prevent double-clicking-bug)
+    document.getElementById("higher-btn").disabled = true;
+    document.getElementById("lower-btn").disabled = true;
+
+    // Shuffle the sites
     shuffleInterval = setInterval(shuffleSiteCo2, 100);
+
+    // Show the result
     setTimeout(() => {
         stopShuffleAndShowFinalCo2();
         if (parseFloat(otherSite.co2_per_year) < parseFloat(currentSite.co2_per_year)) {
@@ -204,6 +215,9 @@ function lowerClicked() {
 }
 
 function tryAgainClicked() {
+    // Re-enable buttons (Disabled during transition to prevent double-clicking-bug)
+    document.getElementById("higher-btn").disabled = false;
+    document.getElementById("lower-btn").disabled = false;
     score = 0;
     document.getElementById("score").innerText = "Score: " + score;
     document.getElementById("result").innerText = "";
