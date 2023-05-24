@@ -75,7 +75,17 @@
         .attr("height", function (d) {
           return height - yScale(parseFloat(d.metric_tons_pr_year));
         })
+        .attr("fill", function (d) {
+                if (d.metric_tons_pr_year > 60000000) {
+                    return "red";
+                } else if (d.metric_tons_pr_year > 15000000) {
+                  return "orange"
+                }
 
+                else {
+                    return "green";
+                }
+              });
       // Add the x-axis
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
