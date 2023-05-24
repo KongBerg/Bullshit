@@ -10,7 +10,7 @@ let sites = [];
 
 fetchSites();
 
-
+// Fetch the list of sites from the server
 async function fetchSites() {
     try {
         const response = await fetch('http://localhost:3001/api/sites');
@@ -25,7 +25,7 @@ async function fetchSites() {
     }
 }
 
-// Functions
+// Get a random site from the list of sites
 function getRandSite(excludeSite) {
     let filteredSites = sites.filter(site => site !== excludeSite);
     let randIndex = Math.floor(Math.random() * filteredSites.length);
@@ -67,7 +67,7 @@ buttons.forEach((button) => {
     button.addEventListener("click", createRipple);
 });
 
-
+// Slide out the current site and slide in the other site
 function slideLeftAndReplace() {
     const currentSiteWrapper = document.getElementById("current-site-wrapper");
     const otherSiteWrapper = document.getElementById("other-site-wrapper");
@@ -101,6 +101,7 @@ function slideLeftAndReplace() {
     }, 1000); // Adjust this time to match the transition duration in your CSS
 }
 
+// Update the UI with new data
 function updateUI() {
     if (!sites || sites.length === 0) {
         console.error('Site data is missing or not loaded properly');
@@ -141,6 +142,7 @@ function showResult() {
     document.getElementById("other-site-co2").innerText = otherSite.co2_per_year.toLocaleString() + " tons";
 }
 
+// Display game over screen
 function showGameOver() {
     if (score > highScore) {
         highScore = score;
@@ -154,24 +156,27 @@ function showGameOver() {
 
     document.getElementById("result").innerHTML = `Sorry, that's incorrect. Game over.<br><br>
                                                    ${otherSite.name} has <span class="highlight">${convertToNumber.toLocaleString()} tons</span> of CO2 emissions per year, 
-                                                   which is <span class="highlight">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.`;
+                                                   which is <span class="highlight ${moreOrLess === 'more' ? 'red-text' : ''}">${difference.toLocaleString()} tons</span> ${moreOrLess} than the website on the left.`;
     document.getElementById("higher-btn").style.display = "none";
     document.getElementById("lower-btn").style.display = "none";
     document.getElementById("try-again-btn").style.display = "block";
     document.getElementById("result").classList.add('endgame-text');
 }
 
+// Shuffle the co2 number
 function shuffleSiteCo2() {
     let shuffledCo2 = Math.floor(Math.random() * (otherSite.co2_per_year * 1.5));
     document.getElementById("other-site-co2").innerText = shuffledCo2.toLocaleString() + " tons";
 }
 
+// Stop the shuffle and show the final co2 number
 function stopShuffleAndShowFinalCo2() {
     let convertToNumber = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
     clearInterval(shuffleInterval);
     document.getElementById("other-site-co2").innerText = convertToNumber.toLocaleString() + " tons";
 }
 
+// Event handlers
 function higherClicked() {
     // Disable buttons (Disabled during transition to prevent double-clicking-bug)
     document.getElementById("higher-btn").disabled = true;
@@ -191,6 +196,7 @@ function higherClicked() {
     }, 1200);
 }
 
+// Event handlers
 function lowerClicked() {
     // Disable buttons (Disabled during transition to prevent double-clicking-bug)
     document.getElementById("higher-btn").disabled = true;
@@ -214,6 +220,7 @@ function lowerClicked() {
     }, 1200);
 }
 
+// Reset the game
 function tryAgainClicked() {
     // Re-enable buttons (Disabled during transition to prevent double-clicking-bug)
     document.getElementById("higher-btn").disabled = false;
@@ -229,6 +236,7 @@ function tryAgainClicked() {
     updateUI();
 }
 
+// Hide the result text after 1 second
 function hideResult() {
     setTimeout(() => {
         document.getElementById("result").innerText = "";
