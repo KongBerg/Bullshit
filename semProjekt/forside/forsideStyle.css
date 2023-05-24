@@ -94,7 +94,7 @@
   display: inline-block;
   object-position: center;
   position: absolute; /* to center the image vertically */
-  top: 60%; /* to center the image vertically */
+  top: 70%; /* to center the image vertically */
   left: 85%; /* to center the image horizontally */
   transform: translate(-100%, -100%);
   background-color: rgb(255, 250, 250);
@@ -140,3 +140,80 @@ body{
   font-size: 20px;
 }
 
+/*THE HEADER */
+.header{
+  height: 130px;
+  width: 100%;
+  background: white;
+  top: 0;
+  box-shadow: 0px 10px 24px 0px rgba(0,0,0,0.25);
+  opacity: .65;
+  display: flex;
+  align-items: center;
+}
+
+.header-tekst {
+  flex-grow: 1;
+  text-align: center;
+  padding-right: 200px;
+  font-size: 28px;
+  font-weight: bold;
+  font-family:Arial, Helvetica, sans-serif;
+  opacity: 100%;
+}
+
+.billede{
+width: 170px;
+ margin-left: 20px;
+}
+
+/* OM BARENE PÅ GRAFEN*/
+rect.bar {
+  fill: steelblue;
+  transition: fill 0.2s ease;
+}
+
+rect.bar:hover {
+  fill: rgb(7, 202, 227);
+  filter: drop-shadow(4px 4px 5px rgba(246, 246, 246, 0.4));
+}
+
+/*FOOTER*/
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer-links {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.footer-links li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer-links li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-links li a:hover {
+  text-decoration: underline;
+}

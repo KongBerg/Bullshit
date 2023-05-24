@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,29 +12,41 @@
       background-color: transparent;
       font-size: 16px;
     }
+
+    /* CSS for the bars */
+    rect.bar {
+      fill: steelblue;
+      transition: fill 0.2s ease;
+    }
+
+    rect.bar:hover {
+      fill: orange;
+    }
   </style>
   <title>Forside</title>
 
 </head>
 <body>
     <!-- HEADER -->
-
-
+    <header class="header1">
+      <div class="header">
+        <img class="billede" src="/semProjekt/forside/GRUPPELOGO.png">
+        <p class="header-tekst">Hvilke Tech-giganter udleder mest CO2?</p>
+      </div>
+    </header>
 
   <!-- Baggrund -->
   <div class="bg"></div>
   <div class="bg bg2"></div>
   <div class="bg bg3"></div>
-  <h2 class="overskrift">Hvilke Tech-giganter udleder mest CO2?</h2>
- 
-
+  <h2 class="overskrift"></h2>
 
   <!-- Data -->
   <script>
     d3.csv("infrastruktur.csv").then(function (data) {
 
       // Set the dimensions and margins of the graph
-      const margin = { top: 30, right: 50, bottom: 300, left: 300 };
+      const margin = { top: 30, right: 100, bottom: 300, left: 300 };
       const width = 1200 - margin.left - margin.right;
       const height = 800 - margin.top - margin.bottom;
 
@@ -66,6 +77,7 @@
         .data(data)
         .enter()
         .append("rect")
+        .attr("class", "bar") // Added class for the bars
         .attr("x", function (d) {
           return xScale(d.firmaer_navne);
         })
@@ -133,8 +145,18 @@
       </div>
   </div>
     <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-content">
+        <p>Gruppe Bullshit</p>
+        <ul class="footer-links">
+          <li><a href="#">Erhvervsakademi </a></li>
+          <li><a href="#">ITA tværfagligt projekt 2023</a></li>
+          <li><a href="#">ITA tværfagligt projekt 2023</a></li>
 
-
+        </ul>
+      </div>
+    </footer>
+      
 </body>
 
 </html>
