@@ -109,8 +109,7 @@ function updateUI() {
     currentSite = getRandSite(otherSite);
     otherSite = getRandSite(currentSite);
 
-    let convertToNumberO = otherSite.co2_per_year * 1; // to get decimals cuz shits not working
-    let convertToNumberC = currentSite.co2_per_year * 1; // to get decimals cuz shits not working
+    let convertToNumberC = currentSite.co2_per_year * 1;
 
     // Update UI for current site (left side)
     const siteNameElement = document.getElementById("site-name");
