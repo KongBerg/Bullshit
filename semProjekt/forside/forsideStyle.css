@@ -41,7 +41,7 @@
 /* Baggrunden*/
 .bg {
   animation:slide 3s ease-in-out infinite alternate;
-  background-image: linear-gradient(-60deg, rgb(102, 204, 51) 50%, rgb(48, 48, 48) 50%);
+  background-image: linear-gradient(-60deg, rgb(102, 204, 51) 50%, rgb(18, 31, 144) 50%);
   bottom:0;
   left:-50%;
   opacity:.5;
