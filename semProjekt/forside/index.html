@@ -4,23 +4,6 @@
   <link rel="stylesheet" type="text/css" href="forsideStyle.css">
   <script src="https://d3js.org/d3.v6.min.js"></script>
   <style>
-    /* CSS for the text box */
-    .text-box {
-      position: absolute;
-      background-color: transparent;
-      font-size: 16px;
-    }
-
-    /* CSS for the bars */
-    rect.bar {
-      fill: steelblue;
-      transition: fill 0.2s ease;
-    }
-
-    rect.bar:hover {
-      fill: orange;
-    }
-
     /* Disable scroll */
     body {
      overflow: hidden;
@@ -109,24 +92,24 @@
         .call(d3.axisLeft(yScale))
         .style("font-size", "14px");
 
-      // Add the text box
-      svg.selectAll(".text-box")
-        .data(data)
-        .enter()
-        .append("foreignObject")
-        .attr("class", "text-box")
-        .attr("x", function (d) {
-          return xScale(d.firmaer_navne) + (xScale.bandwidth() / 2) - 50;
-        })
-        .attr("y", function (d) {
-          return yScale(parseFloat(d.metric_tons_pr_year)) - 30;
-        })
-        .attr("width", 100)
-        .attr("height", 60)
-        .append("xhtml:div")
-        .html(function (d) {
-          return "<p>" + d.metric_tons_pr_year * 1 + "</p>";
-        });
+     // Add the text box
+svg.selectAll(".text-box")
+  .data(data)
+  .enter()
+  .append("foreignObject")
+  .attr("class", "text-box")
+  .attr("x", function (d) {
+    return xScale(d.firmaer_navne) + (xScale.bandwidth() / 2) - 50;
+  })
+  .attr("y", function (d) {
+    return yScale(parseFloat(d.metric_tons_pr_year)) - 30;
+  })
+  .attr("width", 100)
+  .attr("height", 60)
+  .append("xhtml:div")
+  .html(function (d) {
+    return "<p class='text-content'>" + d.metric_tons_pr_year * 1 + "</p>";
+  });
 
     });
   </script>
@@ -134,7 +117,7 @@
   <div class="info-box">
     <div class="evenboxinner"> VIGTIG VIDEN!</div>
 
-    <h2 style="font-size: 38px;">GRAFEN</h2>
+    <h2 style="font-size: 38px; ">GRAFEN</h2>
     <p style="font-weight: normal; font-size: 20px; margin-top: 50px;">Vores graf viser nogle af de største Tech Giganters CO2 udslip på 1 år, overrasker det dig hvor meget Tech industrien er med til at forårsage de store klimaudfordringer vi står med?
 
       Vi har taget udgangspunkt i, hvor meget CO2 de forskellige virksomheders datacentre udleder.

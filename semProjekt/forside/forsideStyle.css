@@ -89,7 +89,7 @@
   padding-top: 20px;
   padding-left: 40px;
   padding-right: 40px;
-  margin-left: 220px;
+  margin-left: 200px;
   margin-top: 120px;
   display: inline-block;
   object-position: center;
@@ -116,10 +116,7 @@
 }
 
 
-/*farve til bar*/
-rect {
-  fill: rgb(30, 68, 106); /* FARVE PÅ HVER BAR */
-}
+
 
 @import url(https://fonts.googleapis.com/css?family=Bangers); /* DET ER TIL BOKSEN INDEN I BOKSEN TEKSTEN
 
@@ -161,6 +158,7 @@ body{
   font-weight: bold;
   font-family:Arial, Helvetica, sans-serif;
   opacity: 100%;
+  font-size: 40px;
 }
 
 .billede{
@@ -171,12 +169,12 @@ width: 170px;
 /* OM BARENE PÅ GRAFEN*/
 rect.bar {
   fill: steelblue;
-  transition: fill 0.2s ease;
+  transition: fill 0.3s ease;
 }
 
 rect.bar:hover {
-  fill: rgb(0, 198, 224);
-  filter: drop-shadow(4px 4px 5px rgba(246, 246, 246, 0.4));
+  fill: rgb(0, 225, 255);
+  filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.4));
 }
 
 /*FOOTER*/
@@ -223,4 +221,11 @@ rect.bar:hover {
 
 .footer-links li a:hover {
   text-decoration: underline;
+}
+
+.text-content {
+  text-align: end;
+padding-bottom: 10px;
+font-weight: bold;
+color:rgb(0, 0, 0)
 }
