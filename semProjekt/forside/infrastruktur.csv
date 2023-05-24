@@ -1,5 +1,5 @@
 "id","firmaer_navne","metric_tons_pr_year","data_centers_procent","data_centers_emisions"
-1,"Amazon",60640000,69,41841600
+1,"Amazon",60640000 ,69,41841600
 2,"Microsoft",16400000,37.0,6068000
 3,"Microsoft",16400000,37.0,6068000
 4,"Google",4900000,46.0,2254000
