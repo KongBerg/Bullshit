@@ -125,7 +125,7 @@
         .attr("height", 60)
         .append("xhtml:div")
         .html(function (d) {
-          return "<p>" + d.metric_tons_pr_year + "</p>";
+          return "<p>" + d.metric_tons_pr_year * 1 + "</p>";
         });
 
     });
