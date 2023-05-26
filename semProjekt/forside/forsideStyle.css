@@ -170,11 +170,12 @@ width: 170px;
 rect.bar {
   transition: fill 0.3s ease;
 }
-
+/*
 rect.bar:hover {
   fill: rgb(0, 225, 255);
   filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.4));
 }
+*/
 
 /*FOOTER*/
 .footer {
